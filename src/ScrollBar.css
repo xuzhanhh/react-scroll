@@ -27,6 +27,7 @@
     /* background: black; */
     border-radius: 10px;
     transform: translate(0px,0px);
+    will-change: transform;
 
   }
   .slider__horizontal {
@@ -36,6 +37,7 @@
     /* background: black; */
     border-radius: 10px;
     transform: translate(0px,0px);
+    will-change: transform;
 
   }
   .invisible{

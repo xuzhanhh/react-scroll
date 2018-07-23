@@ -3,7 +3,7 @@ import logo from './logo.svg';
 import './App.css';
 import Inner from './inner'
 import ScrollBar from './ScrollBar'
-import { Scrollbars } from 'react-custom-scrollbars'
+// import { Scrollbars } from 'react-custom-scrollbars'
 class App extends Component {
   constructor(props) {
     super(props)
@@ -11,16 +11,16 @@ class App extends Component {
   render() {
     return (
       <div className="App">
-        <ScrollBar height="300px" width="500px">
+        <ScrollBar height="300px" width="500px" className="test">
           <Inner />
         </ScrollBar>
 
-        {/* <div style={{marginTop:'50px'}}>
-          <Scrollbars style={{ width: '500px', height: '300px' }}>
-            <Inner />
-          </Scrollbars>
+         <div style={{marginTop:'50px',width:'500px', height:'300px', overflow:'scroll'}}>
+           {/* <Scrollbars style={{ width: '500px', height: '300px' }}> */}
+             <Inner />
+         {/* </Scrollbars> */}
 
-        </div> */}
+        </div>
       </div>
     );
   }
