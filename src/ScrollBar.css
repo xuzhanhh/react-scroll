@@ -1,0 +1,55 @@
+.vertical-scroll {
+    position: absolute;
+    top: 0px;
+    right: 0px;
+    width: 5px;
+    /* height: 100%; */
+    /* background: #d4d4d4; */
+    transition: opacity .4s linear
+  }
+.horizontal-scroll {
+    position: absolute;
+    /* top: 0px; */
+    /* right: 0px; */
+    bottom: 0px;
+    left: 0px;
+    height: 5px;
+    /* height: 100%; */
+    /* background: #d4d4d4; */
+    transition: opacity .4s linear
+  }
+  .inner{
+      position: relative    ;
+      height: 100%;
+      overflow: hidden;
+  }
+  
+  .slider__vertical{
+    position: relative;
+    width: 80%;
+    background: rgba(121, 121, 121, 0.8);
+    /* background: black; */
+    border-radius: 10px;
+  }
+  .slider__horizontal {
+    position: relative;
+    height: 80%;
+    background: rgba(121, 121, 121, 0.8);
+    /* background: black; */
+    border-radius: 10px;
+  }
+  .visible{
+    opacity: 1;
+    transition: opacity .1s linear
+  }
+  .invisible{
+    opacity: 0;
+  
+  }
+  .showArea{
+    /* position: absolute; */
+
+    position: relative;
+    will-change: transform;
+    /* top: 0px; */
+  }
