@@ -2,21 +2,17 @@
     position: absolute;
     top: 0px;
     right: 0px;
-    width: 5px;
-    /* height: 100%; */
-    /* background: #d4d4d4; */
-    transition: opacity .4s linear
+    width: 8px;
+    transition: opacity .4s linear;
+    opacity: 0;
   }
 .horizontal-scroll {
     position: absolute;
-    /* top: 0px; */
-    /* right: 0px; */
     bottom: 0px;
     left: 0px;
-    height: 5px;
-    /* height: 100%; */
-    /* background: #d4d4d4; */
-    transition: opacity .4s linear
+    height: 8px;
+    transition: opacity .4s linear;
+    opacity: 0;
   }
   .inner{
       position: relative    ;
@@ -26,26 +22,36 @@
   
   .slider__vertical{
     position: relative;
-    width: 80%;
+    width: 100%;
     background: rgba(121, 121, 121, 0.8);
     /* background: black; */
     border-radius: 10px;
   }
   .slider__horizontal {
     position: relative;
-    height: 80%;
+    height: 100%;
     background: rgba(121, 121, 121, 0.8);
     /* background: black; */
     border-radius: 10px;
-  }
-  .visible{
-    opacity: 1;
-    transition: opacity .1s linear
   }
   .invisible{
     opacity: 0;
   
   }
+  .visible{
+    opacity: 1;
+    transition: opacity .1s linear;
+    background-color: rgba(0,0,0,0.0);
+
+  }
+  .mousein{
+    opacity: 1;
+    /* transition: opacity .1s linear; */
+    /* border: 1px solid rgba(0,0,0,0.3); */
+    background-color: rgba(0,0,0,0.1);
+  }
+
+
   .showArea{
     /* position: absolute; */
 

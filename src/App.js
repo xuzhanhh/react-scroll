@@ -12,12 +12,19 @@ class App extends Component {
     return (
       <div className="App">
         {/* <div className="wrapper"> */}
-          <ScrollBar height="500px" width="500px">
+        <ScrollBar height="300px" width="500px">
           {/* <Scrollbars style={{width:'500px', height:'300px'}}> */}
-            <Inner />
-            {/* </Scrollbars> */}
-          </ScrollBar>
+          <Inner />
+          {/* </Scrollbars> */}
+        </ScrollBar>
         {/* </div> */}
+
+        <div style={{marginTop:'50px'}}>
+          <Scrollbars style={{ width: '500px', height: '300px' }}>
+            <Inner />
+          </Scrollbars>
+
+        </div>
       </div>
     );
   }
