@@ -26,6 +26,8 @@
     background: rgba(121, 121, 121, 0.8);
     /* background: black; */
     border-radius: 10px;
+    transform: translate(0px,0px);
+
   }
   .slider__horizontal {
     position: relative;
@@ -33,6 +35,8 @@
     background: rgba(121, 121, 121, 0.8);
     /* background: black; */
     border-radius: 10px;
+    transform: translate(0px,0px);
+
   }
   .invisible{
     opacity: 0;
@@ -54,7 +58,7 @@
 
   .showArea{
     /* position: absolute; */
-
+    transform: translate(0px,0px);
     position: relative;
     will-change: transform;
     /* top: 0px; */
