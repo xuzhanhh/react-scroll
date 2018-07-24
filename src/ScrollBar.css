@@ -24,20 +24,20 @@
     position: relative;
     width: 100%;
     background: rgba(121, 121, 121, 0.8);
-    /* background: black; */
     border-radius: 10px;
     transform: translate(0px,0px);
     will-change: transform;
+    /* transition: transform 0.2s */
 
   }
   .slider__horizontal {
     position: relative;
     height: 100%;
     background: rgba(121, 121, 121, 0.8);
-    /* background: black; */
     border-radius: 10px;
     transform: translate(0px,0px);
     will-change: transform;
+    /* transition: transform 0.2s */
 
   }
   .invisible{
@@ -52,16 +52,16 @@
   }
   .mousein{
     opacity: 1;
-    /* transition: opacity .1s linear; */
-    /* border: 1px solid rgba(0,0,0,0.3); */
     background-color: rgba(0,0,0,0.1);
   }
 
 
   .showArea{
-    /* position: absolute; */
     transform: translate(0px,0px);
     position: relative;
     will-change: transform;
-    /* top: 0px; */
+  }
+
+  .scrollbar__click{
+    transition: transform 0.2s;
   }
