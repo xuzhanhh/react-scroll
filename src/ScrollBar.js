@@ -140,52 +140,10 @@ export default class ScrollBar extends Component {
                             mouseInYSlider: false
                         })
                     }
-                } onMouseDown={
-                    (event) => {
-                        // this.setState((preState)=>{
-
-                        //     return {clickScrollBar: !preState.clickScrollBar}
-                        // })
-                        event.preventDefault();
-                        const { target, clientY } = event;
-                        const { top: trackTop } = this.verticalScrollBar.current.getBoundingClientRect();
-                        console.log(trackTop)
-                        this.setState({
-                            clickScrollBar: true
-                        }, () => {
-                            const sliderYHeight = this._getPixelFromTransform(this.verticalSlider)[1]
-                            const showAreaTransform = this._getPixelFromTransform(this.showArea)
-                            const offset = clientY- trackTop;
-                            console.log(offset, sliderYHeight, parseFloat(this.verticalSlider.current.style.height) ,offset - parseFloat(this.verticalSlider.current.style.height))
-                            if (offset <= sliderYHeight) {
-                                console.log("<")
-                                this._changeElementTransform(this.verticalSlider, 0, offset)
-                                this._changeElementTransform(this.showArea, showAreaTransform[0], -(offset * this.scaleY))
-
-                            } else {
-                                this._changeElementTransform(this.verticalSlider, 0, offset - parseFloat(this.verticalSlider.current.style.height))
-                                this._changeElementTransform(this.showArea, showAreaTransform[0], -((offset - parseFloat(this.verticalSlider.current.style.height)) * this.scaleY))
-                            }
-                            this._closeTransiton()
-                        })
-                    }
-                }
+                } onMouseDown={this._handleVerticalScrollBarMouseDown}
                 >
-                    <div className="slider__vertical" ref={this.verticalSlider} onMouseDown={
-                        (event) => {
-                            // this.draggingY = true
-                            this.setState({
-                                draggingY: true
-                            })
-                            event.preventDefault()
-                            event.stopPropagation()
-                            this._handleDragStart(event)
-                            const { target, clientY } = event
-                            const { offsetHeight } = target
-                            const { top } = target.getBoundingClientRect()
-                            this.prevPageY = offsetHeight - (clientY - top)
-                        }
-                    }>
+                    <div className="slider__vertical" ref={this.verticalSlider} onMouseDown={this._handleVerticalSliderMouseDown}
+                    >
                     </div>
                 </div>}
                 {showXslider && <div className={ps} ref={this.horizontalScrollBar} onMouseEnter={
@@ -200,47 +158,8 @@ export default class ScrollBar extends Component {
                             mouseInXSlider: false
                         })
                     }
-                } onMouseDown={
-                    (event) => {
-                        console.log('111111')
-                        event.preventDefault();
-                        const { target, clientX } = event;
-                        const { left: trackLeft } = this.horizontalScrollBar.current.getBoundingClientRect();
-                        this.setState({
-                            clickScrollBar: true
-                        }, () => {
-
-                            const sliderXWidth = this._getPixelFromTransform(this.horizontalSlider)[0]
-                            const showAreaTransform = this._getPixelFromTransform(this.showArea)
-                            const offset = clientX-trackLeft;
-                            if (offset <= sliderXWidth) {
-                                this._changeElementTransform(this.horizontalSlider, offset, 0)
-                                this._changeElementTransform(this.showArea, -(offset * this.scaleX), showAreaTransform[1])
-
-                            } else {
-                                this._changeElementTransform(this.horizontalSlider, offset - parseFloat(this.horizontalSlider.current.style.width), 0)
-                                this._changeElementTransform(this.showArea, -((offset - parseFloat(this.horizontalSlider.current.style.width)) * this.scaleX), showAreaTransform[1])
-                            }
-                            this._closeTransiton()
-
-                        })
-                    }
-                }>
-                    <div className="slider__horizontal" ref={this.horizontalSlider} onMouseDown={
-                        (event) => {
-                            console.log('22222')
-                            // this.draggingX = true;
-                            this.setState({
-                                draggingX: true
-                            })
-                            event.preventDefault();
-                            event.stopPropagation();
-                            this._handleDragStart(event);
-                            const { target, clientX } = event;
-                            const { offsetWidth } = target;
-                            const { left } = target.getBoundingClientRect();
-                            this.prevPageX = offsetWidth - (clientX - left);
-                        }} >
+                } onMouseDown={this._handleHorizontalScrollBarMouseDown}>
+                    <div className="slider__horizontal" ref={this.horizontalSlider} onMouseDown={this._handleHorizontalSliderMouseDown} >
                     </div>
                 </div>}
             </div>
@@ -253,6 +172,77 @@ export default class ScrollBar extends Component {
                 clickScrollBar: false
             })
         }, 200)
+    }
+    _handleHorizontalScrollBarMouseDown = (event) => {
+        event.preventDefault();
+        const { target, clientX } = event;
+        const { left: trackLeft } = this.horizontalScrollBar.current.getBoundingClientRect();
+        this.setState({
+            clickScrollBar: true
+        }, () => {
+
+            const sliderXWidth = this._getPixelFromTransform(this.horizontalSlider)[0]
+            const showAreaTransform = this._getPixelFromTransform(this.showArea)
+            const offset = clientX - trackLeft;
+            if (offset <= sliderXWidth) {
+                this._changeElementTransform(this.horizontalSlider, offset, 0)
+                this._changeElementTransform(this.showArea, -(offset * this.scaleX), showAreaTransform[1])
+
+            } else {
+                this._changeElementTransform(this.horizontalSlider, offset - parseFloat(this.horizontalSlider.current.style.width), 0)
+                this._changeElementTransform(this.showArea, -((offset - parseFloat(this.horizontalSlider.current.style.width)) * this.scaleX), showAreaTransform[1])
+            }
+            this._closeTransiton()
+
+        })
+    }
+
+    _handleVerticalScrollBarMouseDown = (event) => {
+        event.preventDefault();
+        const { target, clientY } = event;
+        const { top: trackTop } = this.verticalScrollBar.current.getBoundingClientRect();
+        this.setState({
+            clickScrollBar: true
+        }, () => {
+            const sliderYHeight = this._getPixelFromTransform(this.verticalSlider)[1]
+            const showAreaTransform = this._getPixelFromTransform(this.showArea)
+            const offset = clientY - trackTop;
+            if (offset <= sliderYHeight) {
+                this._changeElementTransform(this.verticalSlider, 0, offset)
+                this._changeElementTransform(this.showArea, showAreaTransform[0], -(offset * this.scaleY))
+
+            } else {
+                this._changeElementTransform(this.verticalSlider, 0, offset - parseFloat(this.verticalSlider.current.style.height))
+                this._changeElementTransform(this.showArea, showAreaTransform[0], -((offset - parseFloat(this.verticalSlider.current.style.height)) * this.scaleY))
+            }
+            this._closeTransiton()
+        })
+    }
+    _handleVerticalSliderMouseDown = (event) => {
+        // this.draggingY = true
+        this.setState({
+            draggingY: true
+        })
+        event.preventDefault()
+        event.stopPropagation()
+        this._handleDragStart(event)
+        const { target, clientY } = event
+        const { offsetHeight } = target
+        const { top } = target.getBoundingClientRect()
+        this.prevPageY = offsetHeight - (clientY - top)
+    }
+    _handleHorizontalSliderMouseDown = (event) => {
+        // this.draggingX = true;
+        this.setState({
+            draggingX: true
+        })
+        event.preventDefault();
+        event.stopPropagation();
+        this._handleDragStart(event);
+        const { target, clientX } = event;
+        const { offsetWidth } = target;
+        const { left } = target.getBoundingClientRect();
+        this.prevPageX = offsetWidth - (clientX - left);
     }
     // raf = (callback) => {
     //     if (this.requestFrame) raf.cancel(this.requestFrame);
@@ -292,12 +282,12 @@ export default class ScrollBar extends Component {
         if (this.prevPageX) {
             const { clientX } = event;
             const { left: trackLeft2 } = this.horizontalScrollBar.current.getBoundingClientRect();
-            
+
             const horizontalSliderTeansformArr = this._getPixelFromTransform(this.horizontalSlider.current)
             const trackLeft = horizontalSliderTeansformArr[0]
             const sliderXWidth = parseFloat(this.horizontalSlider.current.style.width)
             const clickPosition = sliderXWidth - this.prevPageX;
-            const offset = -trackLeft + clientX - clickPosition- trackLeft2;
+            const offset = -trackLeft + clientX - clickPosition - trackLeft2;
             console.log(trackLeft, trackLeft2)
             let horizontalSliderLeft = trackLeft
             if (horizontalSliderLeft + offset >= 0 && sliderXWidth + horizontalSliderLeft + offset < this.scrollWidth) {
@@ -316,16 +306,14 @@ export default class ScrollBar extends Component {
         if (this.prevPageY) {
             const { clientY } = event;
             const { top: trackTop2 } = this.verticalScrollBar.current.getBoundingClientRect();
-            
+
             const verticalSliderTransformArr = this._getPixelFromTransform(this.verticalSlider.current)
             let trackTop = verticalSliderTransformArr[1]
-            
+
             const sliderYHeight = parseFloat(this.verticalSlider.current.style.height)
             const clickPosition = sliderYHeight - this.prevPageY;
             const offset = -trackTop + clientY - clickPosition - trackTop2;
-            // console.log(trackTop, clientY, offset, clickPosition)
             let verticalSliderTop = trackTop
-            // console.log(trackTop, offset, clientY)
             //中间
             if (verticalSliderTop + offset >= 0 && sliderYHeight + verticalSliderTop + offset < this.scrollHeight) {
                 this._changeElementTransform(this.verticalSlider, 0, verticalSliderTop + offset)
