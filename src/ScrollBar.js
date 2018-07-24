@@ -138,6 +138,7 @@ export default class ScrollBar extends Component {
                 } onMouseDown={
                     (event) => {
                         //test
+                        //test2
                         event.preventDefault();
                         const { target, clientY } = event;
                         const { top: targetTop } = target.getBoundingClientRect();
