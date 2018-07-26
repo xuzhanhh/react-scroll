@@ -3,6 +3,7 @@ import logo from './logo.svg';
 import './App.css';
 import Inner from './inner'
 import ScrollBar from './ScrollBar'
+import VirtualList from './VirtualList'
 // import { Scrollbars } from 'react-custom-scrollbars'
 class App extends Component {
   constructor(props) {
@@ -11,16 +12,19 @@ class App extends Component {
   render() {
     return (
       <div className="App">
-        <ScrollBar height="300px" width="500px" className="test">
-          <Inner />
-        </ScrollBar>
+        <VirtualList  height={300} width={500}>
 
-         <div style={{marginTop:'50px',width:'500px', height:'300px', overflow:'scroll'}}>
-           {/* <Scrollbars style={{ width: '500px', height: '300px' }}> */}
-             <Inner />
-         {/* </Scrollbars> */}
 
-        </div>
+        </VirtualList>
+        {/* <ScrollBar height="300px" width="500px" className="test"> */}
+        {/* <Inner /> */}
+        {/* </ScrollBar> */}
+
+        {/* <div style={{marginTop:'50px',width:'500px', height:'300px', overflow:'scroll'}}> */}
+        {/* <Scrollbars style={{ width: '500px', height: '300px' }}> */}
+        {/* <Inner /> */}
+        {/* </Scrollbars> */}
+
       </div>
     );
   }

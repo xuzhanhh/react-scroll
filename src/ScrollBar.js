@@ -152,6 +152,7 @@ export default class ScrollBar extends Component {
                     })
                 }}
                 onWheel={this._controlScroll}>
+
                 <div className={showAreaClass} ref={this.showArea}>
                     {this.props.children}
                 </div>
@@ -244,9 +245,9 @@ export default class ScrollBar extends Component {
                     this._changeElementTransform(
                         this.horizontalSlider,
                         offset -
-                            parseFloat(
-                                this.horizontalSlider.current.style.width
-                            ),
+                        parseFloat(
+                            this.horizontalSlider.current.style.width
+                        ),
                         0
                     )
                     this._changeElementTransform(
@@ -296,7 +297,7 @@ export default class ScrollBar extends Component {
                         this.verticalSlider,
                         0,
                         offset -
-                            parseFloat(this.verticalSlider.current.style.height)
+                        parseFloat(this.verticalSlider.current.style.height)
                     )
                     this._changeElementTransform(
                         this.showArea,
@@ -516,6 +517,7 @@ export default class ScrollBar extends Component {
 
     _controlScroll = event => {
         event.preventDefault()
+
         //向下滚 delta 正 向上 负
         const { showYslider, showXslider } = this.state
         if (showYslider && event.deltaY !== 0) {
@@ -532,6 +534,9 @@ export default class ScrollBar extends Component {
             } else {
                 contentHeigh = preY - event.deltaY
             }
+            const { onWheel } = this.props
+            // console.log(this.props)
+            onWheel && onWheel(contentHeigh)
             this.showArea.current.style.transform = `translate(${preX}px,${contentHeigh}px)`
             this.verticalSlider.current.style.transform = `translate(${0}px,${-contentHeigh /
                 this.scaleY}px)`
