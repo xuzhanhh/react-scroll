@@ -3,6 +3,7 @@ import './ScrollBarOrigin.styl'
 import './ScrollBar.styl'
 import cx from 'classnames'
 import css from 'dom-css'
+import { setTimeout } from 'timers'
 import PropTypes from 'prop-types'
 import { getTransformString } from './utils'
 window.requestAnimationFrame =
@@ -11,6 +12,8 @@ window.requestAnimationFrame =
         return setTimeout(fn, 1000 / 60)
     }
 window.cancelAnimationFrame = window.cancelAnimationFrame || clearTimeout
+
+let ticking = false
 export default class ScrollBar extends Component {
     constructor(props) {
         super(props)
@@ -29,8 +32,8 @@ export default class ScrollBar extends Component {
             mouseInXSlider: false,
             clickScrollBar: false,
             horizontal:
-                // typeof props.horizontal === 'boolean' ? props.horizontal : true,
-                false,
+                typeof props.horizontal === 'boolean' ? props.horizontal : true,
+            // false,
             vertical:
                 typeof props.vertical === 'boolean' ? props.vertical : true
         }
@@ -42,45 +45,38 @@ export default class ScrollBar extends Component {
         this._addListeners()
     }
     componentDidUpdate() {
-        // console.log('componentDidUpdate')
         if (this.props.allowNesting) {
-            // console.log('refresh')
             this.innerSystemScrollElement = []
             this.innerDontSystemScrollElement = []
         }
         this._initCanvas()
     }
-    // componentWillUpdate(){
-    //     this._initCanvas()
+
+    _addListeners = () => {}
+
+    // _reCalSliderHeight = () => {
+    //     const {
+    //         height: scrollHeight,
+    //         width: scrollWidth
+    //     } = this.scroll.current.getBoundingClientRect()
+    //     const showAreaHeight = this.showArea.current.scrollHeight
+    //     this.verticalScrollBar.current.style.height = scrollHeight + 'px'
+
+    //     this.verticalSlider.current.style.height =
+    //         scrollHeight * (scrollHeight / showAreaHeight) + 'px'
     // }
-    _addListeners = () => {
-        // this.scroll.current.addEventListener('scroll',(e)=>{
-        //   console.log(e)
-        // })
-        // window.addEventListener('scroll', this._controlScroll)
-        // window.addEventListener('scroll', ()=>{})
-        // this.scroll.current.addEventListener(
-        //     'wheel',
-        //     this._controlScroll,
-        //     false
-        // )
-    }
 
     _initCanvas = callback => {
+        //存state
         const { mouseIn, horizontal, vertical } = this.state
         const {
             height: scrollHeight,
             width: scrollWidth
         } = this.scroll.current.getBoundingClientRect()
-        // const { height: showAreaHeight, width: showAreaWidth } = this.showArea.current.getBoundingClientRect()
-        const showAreaHeight = this.showArea.current.scrollHeight
-        // this.setState({
-        //     showAreaHeight
-        // })
-        const showAreaWidth = this.showArea.current.scrollWidth
+        const showAreaHeight = this.showArea.current.scrollHeight - 17
 
+        const showAreaWidth = this.showArea.current.scrollWidth - 17
         if (showAreaHeight <= scrollHeight && this.state.showYslider) {
-            // debugger
             this.setState(() => {
                 return {
                     showYslider: false
@@ -89,14 +85,15 @@ export default class ScrollBar extends Component {
             //重置transform
             let pre = this._getPixelFromTransform(this.showArea.current)
             let [preX, preY] = pre
-            this.showArea.current.style.transform = `translate(${preX}px,${0}px)`
+            this.showArea.current.style.transform = `translate3d(${preX}px,${0}px, 0px)`
         } else if (showAreaHeight > scrollHeight && !this.state.showYslider) {
             this.setState(() => {
                 return {
                     showYslider: true
                 }
             })
-        } else if (showAreaWidth <= scrollWidth && this.state.showXslider) {
+        }
+        if (showAreaWidth <= scrollWidth && this.state.showXslider) {
             this.setState(() => {
                 return {
                     showXslider: false
@@ -106,7 +103,7 @@ export default class ScrollBar extends Component {
 
             let pre = this._getPixelFromTransform(this.showArea.current)
             let [preX, preY] = pre
-            this.showArea.current.style.transform = `translate(${0}px,${preY}px)`
+            this.showArea.current.style.transform = `translate3d(${0}px,${preY}px, 0px)`
         } else if (showAreaWidth > scrollWidth && !this.state.showXslider) {
             this.setState(() => {
                 return {
@@ -127,49 +124,6 @@ export default class ScrollBar extends Component {
                 this.scaleY = this.contentScrollableHeight / this.sliderHeight
                 this.scrollHeight = scrollHeight
                 this.showAreaHeight = showAreaHeight
-
-                let pre = this._getPixelFromTransform(this.showArea.current)
-                let [preX, preY] = pre
-                let contentHeigh = null
-                if (preY > 0) {
-                    contentHeigh = 0
-                } else if (preY < -(this.showAreaHeight - this.scrollHeight)) {
-                    contentHeigh = -(this.showAreaHeight - this.scrollHeight)
-                } else {
-                    contentHeigh = preY
-                }
-                // if (typeof this.nextTickShowAreaHeight === 'number') {
-                //     // let test = contentHeigh / ( this.showAreaHeight - this.scrollHeight ) * (this.scrollHeight)
-                //     // this.currentTickShowAreaHeight = (this.nextTickShowAreaHeight - preY) / (this.showAreaHeight - this.scrollHeight) * this.sliderHeight
-                //     // this.currentTickShowAreaHeight = (this.nextTickShowAreaHeight - preY) / 2
-                //     this.preY = preY
-                //     this.currentTickShowAreaHeight =
-                //         (this.nextTickShowAreaHeight - this.preY) / 5
-                //     // console.log(this.currentTickShowAreaHeight)
-                //     contentHeigh =
-                //         Math.abs(
-                //             Math.abs(preY + this.currentTickShowAreaHeight) -
-                //                 Math.abs(this.nextTickShowAreaHeight)
-                //         ) < 10
-                //             ? this.nextTickShowAreaHeight
-                //             : preY + this.currentTickShowAreaHeight
-                // }
-                // this.showArea.current.style.transform = getTransformString(
-                //     preX,
-                //     contentHeigh
-                // )
-                // this.verticalSlider.current.style.transform = getTransformString(
-                //     0,
-                //     -contentHeigh / this.scaleY
-                // )
-                // if (Math.abs(this.nextTickShowAreaHeight - contentHeigh) > 10) {
-                //     this.globalID = window.requestAnimationFrame(
-                //         this._initCanvas
-                //     )
-                // } else {
-                //     this.nextTickShowAreaHeight = undefined
-                //     window.cancelAnimationFrame(this.globalID)
-                // }
             }
             if (horizontal && this.state.showXslider) {
                 this.horizontalScrollBar.current.style.width =
@@ -184,57 +138,25 @@ export default class ScrollBar extends Component {
                 this.scaleX = this.contentScrollableWidth / this.sliderWidth
                 this.scrollWidth = scrollWidth
                 this.showAreaWidth = showAreaWidth
-
-                let pre = this._getPixelFromTransform(this.showArea.current)
-                let [preX, preY] = pre
-                let contentWidth = null
-                if (preX > 0) {
-                    contentWidth = 0
-                } else if (preX < -(this.showAreaWidth - this.scrollWidth)) {
-                    contentWidth = -(this.showAreaWidth - this.scrollWidth)
-                } else {
-                    contentWidth = preX
-                }
-                // this.showArea.current.style.transform = `translate(${contentWidth}px,${preY}px)`
-                // this.horizontalSlider.current.style.transform = `translate(${-contentWidth /
-                //     this.scaleX}px,${0}px)`
-                this.showArea.current.style.transform = getTransformString(
-                    contentWidth,
-                    preY
-                )
-                this.horizontalSlider.current.style.transform = getTransformString(
-                    -contentWidth / this.scaleX,
-                    0
-                )
             }
         }
-
-        // if(this.nextTickShowAreaHeight !== this.currentTickShowAreaHeight ){
-        //     setInterval(this._initCanvas,100)
-        // }
     }
     scrollTop = top => {
         const { showYslider } = this.state
         if (showYslider && top !== 0) {
-            let pre = this._getPixelFromTransform(this.showArea.current)
-            let [preX, preY] = pre
             if (top < 0) {
                 top = 0
             }
             if (top > this.showAreaHeight - this.scrollHeight) {
                 top = this.showAreaHeight - this.scrollHeight
             }
-            let contentHeigh = -top
-            // this.showArea.current.style.transform = `translate(${preX}px,${contentHeigh}px)`
-            // this.verticalSlider.current.style.transform = `translate(${0}px,${-contentHeigh /
-            //     this.scaleY}px)`
-            this.showArea.current.style.transform = getTransformString(
-                preX,
-                contentHeigh
-            )
-            this.verticalSlider.current.style.transform = getTransformString(
+            let contentHeigh = top
+            this.showArea.current.scrollTop = contentHeigh
+
+            this._changeElementTransform(
+                this.verticalSlider,
                 0,
-                -contentHeigh / this.scaleY
+                contentHeigh / this.scaleY
             )
         }
     }
@@ -242,31 +164,19 @@ export default class ScrollBar extends Component {
     scrollLeft = left => {
         const { showXslider } = this.state
         if (showXslider && left !== 0) {
-            let pre = this._getPixelFromTransform(this.showArea.current)
-            let [preX, preY] = pre
-            // let contentWidth = null
             if (left < 0) {
                 left = 0
             } else if (left > this.showAreaWidth - this.scrollWidth) {
                 left = this.showAreaWidth - this.scrollWidth
             }
-            let contentWidth = -left
-            this.showArea.current.style.transform = `translate(${contentWidth}px,${preY}px)`
-            this.horizontalSlider.current.style.transform = `translate(${-contentWidth /
-                this.scaleX}px,${0}px)`
+            let contentWidth = left
+            this.showArea.current.scrollLeft = contentWidth
+            this._changeElementTransform(
+                this.horizontalSlider,
+                contentWidth / this.scaleX,
+                0
+            )
         }
-    }
-
-    raf = callback => {
-        if (this.requestFrame) raf.cancel(this.requestFrame)
-        this.requestFrame = raf(() => {
-            this.requestFrame = undefined
-            callback()
-        })
-    }
-
-    update = callback => {
-        this.raf(() => this._initCanvas(callback))
     }
 
     render() {
@@ -311,8 +221,11 @@ export default class ScrollBar extends Component {
         let showAreaClass = cx({
             [`showArea`]: true,
             [`showArea__origin`]: true,
-            [`scrollbar__click`]: clickScrollBar
+            [`scrollbar__click`]: clickScrollBar,
+            [`showArea__disable--x`]: !horizontal,
+            [`showArea__disable--y`]: !vertical
         })
+
         this.scroll.current && css(this.scroll.current, { height, width })
         return (
             <div
@@ -349,8 +262,8 @@ export default class ScrollBar extends Component {
                                     mouseInYSlider: false
                                 })
                             }}
-                            onMouseDown={
-                                this._handleVerticalScrollBarMouseDown
+                            onMouseDown={e =>
+                                this._handleVerticalScrollBarMouseDown(e, this)
                             }>
                             <div
                                 className="slider__vertical"
@@ -376,8 +289,11 @@ export default class ScrollBar extends Component {
                                     mouseInXSlider: false
                                 })
                             }}
-                            onMouseDown={
-                                this._handleHorizontalScrollBarMouseDown
+                            onMouseDown={e =>
+                                this._handleHorizontalScrollBarMouseDown(
+                                    e,
+                                    this
+                                )
                             }>
                             <div
                                 className="slider__horizontal"
@@ -399,7 +315,7 @@ export default class ScrollBar extends Component {
             })
         }, 200)
     }
-    _handleHorizontalScrollBarMouseDown = event => {
+    _handleHorizontalScrollBarMouseDown = (event, that) => {
         event.preventDefault()
         const { target, clientX } = event
         const {
@@ -418,35 +334,16 @@ export default class ScrollBar extends Component {
                 )
                 const offset = clientX - trackLeft
                 if (offset <= sliderXWidth) {
-                    this._changeElementTransform(
-                        this.horizontalSlider,
-                        offset,
-                        0
-                    )
-                    this._changeElementTransform(
-                        this.showArea,
-                        -(offset * this.scaleX),
-                        showAreaTransform[1]
-                    )
+                    this._UpdateSlider(offset * this.scaleX, 'horizontal', that)
                 } else {
-                    this._changeElementTransform(
-                        this.horizontalSlider,
-                        offset -
+                    this._UpdateSlider(
+                        (offset -
                             parseFloat(
                                 this.horizontalSlider.current.style.width
-                            ),
-                        0
-                    )
-                    this._changeElementTransform(
-                        this.showArea,
-                        -(
-                            (offset -
-                                parseFloat(
-                                    this.horizontalSlider.current.style.width
-                                )) *
-                            this.scaleX
-                        ),
-                        showAreaTransform[1]
+                            )) *
+                            this.scaleX,
+                        'horizontal',
+                        that
                     )
                 }
                 this._closeTransiton()
@@ -454,7 +351,7 @@ export default class ScrollBar extends Component {
         )
     }
 
-    _handleVerticalScrollBarMouseDown = event => {
+    _handleVerticalScrollBarMouseDown = (event, that) => {
         event.preventDefault()
         const { target, clientY } = event
         const {
@@ -472,28 +369,70 @@ export default class ScrollBar extends Component {
                     this.showArea
                 )
                 const offset = clientY - trackTop
-                // console.log(offset)
                 if (offset <= sliderYHeight) {
-                    this._changeElementTransform(this.verticalSlider, 0, offset)
-                    this.showArea.current.scrollTop = offset * this.scaleY
+                    this._UpdateSlider(offset * this.scaleY, 'vertical', that)
                 } else {
-                    this._changeElementTransform(
-                        this.verticalSlider,
-                        0,
-                        offset -
-                            parseFloat(this.verticalSlider.current.style.height)
-                    )
-                    this.showArea.current.scrollTop =
+                    this._UpdateSlider(
                         (offset -
                             parseFloat(
                                 this.verticalSlider.current.style.height
                             )) *
-                        this.scaleY
+                            this.scaleY,
+                        'vertical',
+                        that
+                    )
                 }
                 this._closeTransiton()
             }
         )
     }
+    _UpdateSlider(target, position, that, origin) {
+        let slider = null
+        switch (position) {
+            case 'vertical':
+                slider = that.showArea.current.scrollTop
+                break
+            case 'horizontal':
+                slider = that.showArea.current.scrollLeft
+        }
+        let current = slider
+        let step =
+            Math.abs((origin ? origin : current) - target) / 7 > 15
+                ? Math.abs((origin ? origin : current) - target) / 7
+                : 15
+        if (Math.abs(current - target) > step) {
+            that.globalID = window.requestAnimationFrame(() =>
+                that._UpdateSlider(
+                    target,
+                    position,
+                    that,
+                    origin ? origin : current
+                )
+            )
+            switch (position) {
+                case 'vertical':
+                    that.showArea.current.scrollTop =
+                        current + (target > current ? step : -step)
+                    break
+                case 'horizontal':
+                    that.showArea.current.scrollLeft =
+                        current + (target > current ? step : -step)
+                    break
+            }
+        } else {
+            window.cancelAnimationFrame(that.globalID)
+            // slider = target
+            switch (position) {
+                case 'vertical':
+                    that.showArea.current.scrollTop = target
+                    break
+                case 'horizontal':
+                    that.showArea.current.scrollLeft = target
+                    break
+            }
+        }
+    }
+
     _handleVerticalSliderMouseDown = event => {
         // this.draggingY = true
         this.setState({
@@ -570,19 +509,13 @@ export default class ScrollBar extends Component {
                     horizontalSliderLeft + offset,
                     0
                 )
-                this._changeElementTransform(
-                    this.showArea,
-                    -(horizontalSliderLeft * this.scaleX),
-                    showAreaTransformArr[1]
-                )
+
+                this.showArea.current.scrollLeft =
+                    horizontalSliderLeft * this.scaleX
             }
             if (horizontalSliderLeft + offset < 0) {
                 this._changeElementTransform(this.horizontalSlider, 0, 0)
-                this._changeElementTransform(
-                    this.showArea,
-                    0,
-                    showAreaTransformArr[1]
-                )
+                this.showArea.current.scrollLeft = 0
             }
             if (
                 sliderXWidth + horizontalSliderLeft + offset >=
@@ -593,11 +526,8 @@ export default class ScrollBar extends Component {
                     this.scrollWidth - sliderXWidth,
                     0
                 )
-                this._changeElementTransform(
-                    this.showArea,
-                    -((this.scrollWidth - sliderXWidth) * this.scaleX),
-                    showAreaTransformArr[1]
-                )
+                this.showArea.current.scrollLeft =
+                    (this.scrollWidth - sliderXWidth) * this.scaleX
             }
         }
         if (this.prevPageY) {
@@ -631,25 +561,13 @@ export default class ScrollBar extends Component {
                     0,
                     verticalSliderTop + offset
                 )
-                // this._changeElementTransform(
-                //     this.showArea,
-                //     showAreaTransformArr[0],
-                //     -(verticalSliderTop * this.scaleY)
-                // )
 
                 this.showArea.current.scrollTop =
                     verticalSliderTop * this.scaleY
-
-                // console.log(verticalSliderTop * this.scaleY)
             }
             //上边界
             if (verticalSliderTop + offset < 0) {
                 this._changeElementTransform(this.verticalSlider, 0, 0)
-                // this._changeElementTransform(
-                //     this.showArea,
-                //     showAreaTransformArr[0],
-                //     0
-                // )
 
                 this.showArea.current.scrollTop = 0
             }
@@ -663,11 +581,6 @@ export default class ScrollBar extends Component {
                     0,
                     this.scrollHeight - sliderYHeight
                 )
-                // this._changeElementTransform(
-                //     this.showArea,
-                //     showAreaTransformArr[0],
-                //     -((this.scrollHeight - sliderYHeight) * this.scaleY)
-                // )
 
                 this.showArea.current.scrollTop =
                     (this.scrollHeight - sliderYHeight) * this.scaleY
@@ -677,7 +590,6 @@ export default class ScrollBar extends Component {
     }
     _changeElementTransform = (element, x, y) => {
         let el = element.current ? element.current : element
-        // el.style.transform = `translate(${x}px,${y}px)`
         el.style.transform = getTransformString(x, y)
     }
 
@@ -695,16 +607,39 @@ export default class ScrollBar extends Component {
             showXslider,
             horizontal,
             vertical,
-            draggingY
+            draggingY,
+            draggingX
         } = this.state
-        const { scrollTop } = event.target
-        // console.log('origin', scrollTop)
-
-        if (!draggingY) {
-            this.verticalSlider.current.style.transform = getTransformString(
-                0,
-                scrollTop / this.scaleY
-            )
+        const { scrollTop, scrollLeft } = this.showArea.current
+        if (vertical && !draggingY && showYslider) {
+            let preY = this._getPixelFromTransform(this.verticalSlider)[1]
+            if (preY !== parseInt(scrollTop / this.scaleY)) {
+                //输入事件和动画帧以大约相同的速率触发，因此下面的优化通常是没有必要的
+                if (!ticking) {
+                    window.requestAnimationFrame(() => {
+                        // setTimeout(() => {
+                        this._changeElementTransform(
+                            this.verticalSlider,
+                            0,
+                            scrollTop / this.scaleY
+                        )
+                        ticking = false
+                    })
+                }
+                ticking = true
+            }
+        }
+        if (horizontal && !draggingX && showXslider) {
+            let preX = this._getPixelFromTransform(this.horizontalSlider)[0]
+            if (preX !== parseInt(scrollLeft / this.scaleX)) {
+                window.requestAnimationFrame(() =>
+                    this._changeElementTransform(
+                        this.horizontalSlider,
+                        scrollLeft / this.scaleX,
+                        0
+                    )
+                )
+            }
         }
     }
     _getPixelFromTransform = transformEl => {

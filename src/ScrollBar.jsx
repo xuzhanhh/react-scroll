@@ -90,7 +90,7 @@ export default class ScrollBar extends Component {
             //重置transform
             let pre = this._getPixelFromTransform(this.showArea.current)
             let [preX, preY] = pre
-            this.showArea.current.style.transform = `translate(${preX}px,${0}px)`
+            this.showArea.current.style.transform = `translate3d(${preX}px,${0}px,0)`
         } else if (showAreaHeight > scrollHeight && !this.state.showYslider) {
             this.setState(() => {
                 return {
@@ -107,7 +107,7 @@ export default class ScrollBar extends Component {
 
             let pre = this._getPixelFromTransform(this.showArea.current)
             let [preX, preY] = pre
-            this.showArea.current.style.transform = `translate(${0}px,${preY}px)`
+            this.showArea.current.style.transform = `translate3d(${0}px,${preY}px,0)`
         } else if (showAreaWidth > scrollWidth && !this.state.showXslider) {
             this.setState(() => {
                 return {
@@ -163,6 +163,7 @@ export default class ScrollBar extends Component {
                     0,
                     -contentHeigh / this.scaleY
                 )
+
                 if (Math.abs(this.nextTickShowAreaHeight - contentHeigh) > 10) {
                     this.globalID = window.requestAnimationFrame(
                         this._initCanvas
@@ -196,9 +197,6 @@ export default class ScrollBar extends Component {
                 } else {
                     contentWidth = preX
                 }
-                // this.showArea.current.style.transform = `translate(${contentWidth}px,${preY}px)`
-                // this.horizontalSlider.current.style.transform = `translate(${-contentWidth /
-                //     this.scaleX}px,${0}px)`
                 this.showArea.current.style.transform = getTransformString(
                     contentWidth,
                     preY
@@ -209,10 +207,6 @@ export default class ScrollBar extends Component {
                 )
             }
         }
-
-        // if(this.nextTickShowAreaHeight !== this.currentTickShowAreaHeight ){
-        //     setInterval(this._initCanvas,100)
-        // }
     }
     scrollTop = top => {
         const { showYslider } = this.state
@@ -226,9 +220,6 @@ export default class ScrollBar extends Component {
                 top = this.showAreaHeight - this.scrollHeight
             }
             let contentHeigh = -top
-            // this.showArea.current.style.transform = `translate(${preX}px,${contentHeigh}px)`
-            // this.verticalSlider.current.style.transform = `translate(${0}px,${-contentHeigh /
-            //     this.scaleY}px)`
             this.showArea.current.style.transform = getTransformString(
                 preX,
                 contentHeigh
@@ -252,9 +243,9 @@ export default class ScrollBar extends Component {
                 left = this.showAreaWidth - this.scrollWidth
             }
             let contentWidth = -left
-            this.showArea.current.style.transform = `translate(${contentWidth}px,${preY}px)`
-            this.horizontalSlider.current.style.transform = `translate(${-contentWidth /
-                this.scaleX}px,${0}px)`
+            this.showArea.current.style.transform = `translate3d(${contentWidth}px,${preY}px, 0)`
+            this.horizontalSlider.current.style.transform = `translate3d(${-contentWidth /
+                this.scaleX}px,${0}px, 0)`
         }
     }
 
@@ -674,7 +665,6 @@ export default class ScrollBar extends Component {
     }
     _changeElementTransform = (element, x, y) => {
         let el = element.current ? element.current : element
-        // el.style.transform = `translate(${x}px,${y}px)`
         el.style.transform = getTransformString(x, y)
     }
 
@@ -767,8 +757,6 @@ export default class ScrollBar extends Component {
 
                 contentHeigh = preY - deltaY
             }
-            // this.showArea.current.style.transform = `translate(${preX}px,${contentHeigh}px)`
-            // this.verticalSlider.current.style.transform = `translate(${0}px,${-contentHeigh / this.scaleY}px)`
             this.nextTickShowAreaHeight = contentHeigh
             // console.log(this.nextTickShowAreaHeight)
             this._initCanvas()
@@ -799,9 +787,6 @@ export default class ScrollBar extends Component {
                 -contentWidth / this.scaleX,
                 0
             )
-            // this.showArea.current.style.transform = `translate(${contentWidth}px,${preY}px)`
-            // this.horizontalSlider.current.style.transform = `translate(${-contentWidth /
-            //     this.scaleX}px,${0}px)`
         }
     }
 
