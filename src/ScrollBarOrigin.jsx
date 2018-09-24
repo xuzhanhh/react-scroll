@@ -3,7 +3,6 @@ import './ScrollBarOrigin.styl'
 import './ScrollBar.styl'
 import cx from 'classnames'
 import css from 'dom-css'
-import { setTimeout } from 'timers'
 import PropTypes from 'prop-types'
 import { getTransformString } from './utils'
 window.requestAnimationFrame =
@@ -14,7 +13,7 @@ window.requestAnimationFrame =
 window.cancelAnimationFrame = window.cancelAnimationFrame || clearTimeout
 
 let ticking = false
-export default class ScrollBar extends Component {
+export default class ScrollBarOrigin extends Component {
     constructor(props) {
         super(props)
 
@@ -52,7 +51,7 @@ export default class ScrollBar extends Component {
         this._initCanvas()
     }
 
-    _addListeners = () => {}
+    // _addListeners = () => {}
 
     // _reCalSliderHeight = () => {
     //     const {

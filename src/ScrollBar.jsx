@@ -2,7 +2,6 @@ import React, { Component } from 'react'
 import './ScrollBar.styl'
 import cx from 'classnames'
 import css from 'dom-css'
-import { setTimeout } from 'timers'
 import PropTypes from 'prop-types'
 import { getTransformString } from './utils'
 window.requestAnimationFrame =
@@ -11,7 +10,7 @@ window.requestAnimationFrame =
         return setTimeout(fn, 1000 / 60)
     }
 window.cancelAnimationFrame = window.cancelAnimationFrame || clearTimeout
-export default class ScrollBar extends Component {
+class ScrollBar extends Component {
     constructor(props) {
         super(props)
 
@@ -38,7 +37,7 @@ export default class ScrollBar extends Component {
     }
     componentDidMount() {
         this._initCanvas()
-        this._addListeners()
+        // this._addListeners()
     }
     componentDidUpdate() {
         // console.log('componentDidUpdate')
@@ -838,3 +837,5 @@ ScrollBar.propTypes = {
 const viewportScrollBar = this.refs.viewportScrollBar
 viewportScrollBar.scrollTop(top - spaceBuffer)
 */
+
+export default ScrollBar
