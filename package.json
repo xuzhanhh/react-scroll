@@ -1,16 +1,9 @@
 {
-  "name": "scroll-bar",
-  "version": "0.1.0",
-  "private": true,
+  "name": "@xuzhanhh/react-scroll",
+  "version": "0.1.1",
   "dependencies": {
     "classnames": "^2.2.6",
-    "co": "^4.6.0",
-    "dom-css": "^2.1.0",
-    "import": "^0.0.6",
-    "raf": "^3.4.0",
-    "react": "^16.5.2",
-    "react-dom": "^16.4.1",
-    "react-scripts": "1.1.4"
+    "dom-css": "^2.1.0"
   },
   "scripts": {
     "start": "react-scripts start",
@@ -19,6 +12,10 @@
     "eject": "react-scripts eject"
   },
   "devDependencies": {
+    "react": "^16.5.2",
+    "react-dom": "^16.4.1",
+    "react-scripts": "1.1.4",
+    "co": "^4.6.0",
     "babel": "^6.23.0",
     "babel-cli": "^6.26.0",
     "babel-loader": "^7.1.5",
@@ -36,5 +33,21 @@
     "stylus-loader": "^3.0.2",
     "webpack": "^4.19.1",
     "webpack-cli": "^3.1.1"
-  }
+  },
+  "description": "useful wrapper component to change system scrollbar",
+  "main": "index.js",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/xuzhanhh/react-scroll.git"
+  },
+  "keywords": [
+    "scrollbar",
+    "react"
+  ],
+  "author": "xuzhanhh",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/xuzhanhh/react-scroll/issues"
+  },
+  "homepage": "https://github.com/xuzhanhh/react-scroll#readme"
 }
