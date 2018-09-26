@@ -41,7 +41,6 @@ export default class ScrollBarOrigin extends Component {
     }
     componentDidMount() {
         this._initCanvas()
-        this._addListeners()
     }
     componentDidUpdate() {
         if (this.props.allowNesting) {
@@ -662,7 +661,7 @@ export default class ScrollBarOrigin extends Component {
     }
 }
 
-ScrollBar.propTypes = {
+ScrollBarOrigin.propTypes = {
     /*
         是否渲染并使用水平滚动条 默认为true
     */

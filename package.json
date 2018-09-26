@@ -1,6 +1,6 @@
 {
   "name": "@xuzhanhh/react-scroll",
-  "version": "0.1.1",
+  "version": "0.1.6",
   "dependencies": {
     "classnames": "^2.2.6",
     "dom-css": "^2.1.0"
@@ -12,10 +12,6 @@
     "eject": "react-scripts eject"
   },
   "devDependencies": {
-    "react": "^16.5.2",
-    "react-dom": "^16.4.1",
-    "react-scripts": "1.1.4",
-    "co": "^4.6.0",
     "babel": "^6.23.0",
     "babel-cli": "^6.26.0",
     "babel-loader": "^7.1.5",
@@ -23,12 +19,18 @@
     "babel-preset-env": "^1.7.0",
     "babel-preset-react": "^6.24.1",
     "babel-preset-stage-0": "^6.24.1",
+    "co": "^4.6.0",
     "eslint": "^5.6.0",
     "eslint-config-airbnb": "^17.1.0",
     "eslint-plugin-import": "^2.14.0",
     "eslint-plugin-jsx-a11y": "^6.1.1",
     "eslint-plugin-react": "^7.11.1",
+    "extract-text-webpack-plugin": "^4.0.0-beta.0",
     "has-ansi": "^3.0.0",
+    "mini-css-extract-plugin": "^0.4.3",
+    "react": "^16.5.2",
+    "react-dom": "^16.4.1",
+    "react-scripts": "1.1.4",
     "stylus": "^0.54.5",
     "stylus-loader": "^3.0.2",
     "webpack": "^4.19.1",

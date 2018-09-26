@@ -102,26 +102,6 @@ return /******/ (function(modules) { // webpackBootstrap
 
 
 Object.defineProperty(exports, "__esModule", {
-  value: true
-});
-
-var _ScrollBarOrigin = __webpack_require__(1);
-
-var _ScrollBarOrigin2 = _interopRequireDefault(_ScrollBarOrigin);
-
-function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
-
-// export default ScrollBar;
-exports.default = ScrollBar; // import ScrollBar from './ScrollBar';
-
-/***/ }),
-/* 1 */
-/***/ (function(module, exports, __webpack_require__) {
-
-"use strict";
-
-
-Object.defineProperty(exports, "__esModule", {
     value: true
 });
 
@@ -129,13 +109,13 @@ var _slicedToArray = function () { function sliceIterator(arr, i) { var _arr = [
 
 var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
 
-var _react = __webpack_require__(2);
+var _react = __webpack_require__(1);
 
 var _react2 = _interopRequireDefault(_react);
 
-__webpack_require__(7);
+__webpack_require__(6);
 
-__webpack_require__(9);
+__webpack_require__(8);
 
 var _classnames = __webpack_require__(10);
 
@@ -563,7 +543,6 @@ var ScrollBarOrigin = function (_Component) {
         key: 'componentDidMount',
         value: function componentDidMount() {
             this._initCanvas();
-            this._addListeners();
         }
     }, {
         key: 'componentDidUpdate',
@@ -740,7 +719,7 @@ var ScrollBarOrigin = function (_Component) {
 exports.default = ScrollBarOrigin;
 
 
-ScrollBar.propTypes = {
+ScrollBarOrigin.propTypes = {
     /*
         是否渲染并使用水平滚动条 默认为true
     */
@@ -770,19 +749,19 @@ ScrollBar.propTypes = {
 };
 
 /***/ }),
-/* 2 */
+/* 1 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
 
 
 if (false) {} else {
-  module.exports = __webpack_require__(3);
+  module.exports = __webpack_require__(2);
 }
 
 
 /***/ }),
-/* 3 */
+/* 2 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -803,8 +782,8 @@ if (true) {
   (function() {
 'use strict';
 
-var _assign = __webpack_require__(4);
-var checkPropTypes = __webpack_require__(5);
+var _assign = __webpack_require__(3);
+var checkPropTypes = __webpack_require__(4);
 
 // TODO: this is special because it gets imported during build.
 
@@ -2515,7 +2494,7 @@ module.exports = react;
 
 
 /***/ }),
-/* 4 */
+/* 3 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -2612,7 +2591,7 @@ module.exports = shouldUseNative() ? Object.assign : function (target, source) {
 
 
 /***/ }),
-/* 5 */
+/* 4 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -2628,7 +2607,7 @@ module.exports = shouldUseNative() ? Object.assign : function (target, source) {
 var printWarning = function() {};
 
 if (true) {
-  var ReactPropTypesSecret = __webpack_require__(6);
+  var ReactPropTypesSecret = __webpack_require__(5);
   var loggedTypeFailures = {};
 
   printWarning = function(text) {
@@ -2710,7 +2689,7 @@ module.exports = checkPropTypes;
 
 
 /***/ }),
-/* 6 */
+/* 5 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -2729,116 +2708,20 @@ module.exports = ReactPropTypesSecret;
 
 
 /***/ }),
-/* 7 */
+/* 6 */
 /***/ (function(module, exports, __webpack_require__) {
 
-exports = module.exports = __webpack_require__(8)(undefined);
-// imports
-
-
-// module
-exports.push([module.i, ".inner__origin {\n  position: relative;\n  overflow: hidden;\n  width: 100%;\n  height: 100%;\n}\n.showArea__origin {\n  overflow-x: scroll;\n  overflow-y: scroll;\n  box-sizing: content-box;\n  padding-right: 17px;\n  padding-bottom: 17px;\n  width: 100%;\n  height: 100%;\n}\n.prop-panel__content {\n  width: 700px !important;\n}\n.showArea__disable--x {\n  overflow-x: hidden;\n}\n.showArea__disable--y {\n  overflow-y: hidden;\n}\n", ""]);
-
-// exports
-
+// extracted by mini-css-extract-plugin
 
 /***/ }),
+/* 7 */,
 /* 8 */
-/***/ (function(module, exports) {
-
-/*
-	MIT License http://www.opensource.org/licenses/mit-license.php
-	Author Tobias Koppers @sokra
-*/
-// css base code, injected by the css-loader
-module.exports = function(useSourceMap) {
-	var list = [];
-
-	// return the list of modules as css string
-	list.toString = function toString() {
-		return this.map(function (item) {
-			var content = cssWithMappingToString(item, useSourceMap);
-			if(item[2]) {
-				return "@media " + item[2] + "{" + content + "}";
-			} else {
-				return content;
-			}
-		}).join("");
-	};
-
-	// import a list of modules into the list
-	list.i = function(modules, mediaQuery) {
-		if(typeof modules === "string")
-			modules = [[null, modules, ""]];
-		var alreadyImportedModules = {};
-		for(var i = 0; i < this.length; i++) {
-			var id = this[i][0];
-			if(typeof id === "number")
-				alreadyImportedModules[id] = true;
-		}
-		for(i = 0; i < modules.length; i++) {
-			var item = modules[i];
-			// skip already imported module
-			// this implementation is not 100% perfect for weird media query combinations
-			//  when a module is imported multiple times with different media queries.
-			//  I hope this will never occur (Hey this way we have smaller bundles)
-			if(typeof item[0] !== "number" || !alreadyImportedModules[item[0]]) {
-				if(mediaQuery && !item[2]) {
-					item[2] = mediaQuery;
-				} else if(mediaQuery) {
-					item[2] = "(" + item[2] + ") and (" + mediaQuery + ")";
-				}
-				list.push(item);
-			}
-		}
-	};
-	return list;
-};
-
-function cssWithMappingToString(item, useSourceMap) {
-	var content = item[1] || '';
-	var cssMapping = item[3];
-	if (!cssMapping) {
-		return content;
-	}
-
-	if (useSourceMap && typeof btoa === 'function') {
-		var sourceMapping = toComment(cssMapping);
-		var sourceURLs = cssMapping.sources.map(function (source) {
-			return '/*# sourceURL=' + cssMapping.sourceRoot + source + ' */'
-		});
-
-		return [content].concat(sourceURLs).concat([sourceMapping]).join('\n');
-	}
-
-	return [content].join('\n');
-}
-
-// Adapted from convert-source-map (MIT)
-function toComment(sourceMap) {
-	// eslint-disable-next-line no-undef
-	var base64 = btoa(unescape(encodeURIComponent(JSON.stringify(sourceMap))));
-	var data = 'sourceMappingURL=data:application/json;charset=utf-8;base64,' + base64;
-
-	return '/*# ' + data + ' */';
-}
-
-
-/***/ }),
-/* 9 */
 /***/ (function(module, exports, __webpack_require__) {
 
-exports = module.exports = __webpack_require__(8)(undefined);
-// imports
-
-
-// module
-exports.push([module.i, ".vertical-scroll {\n  position: absolute;\n  top: 0;\n  right: 0;\n  width: 5px;\n  opacity: 0;\n  transition: opacity 0.4s linear;\n}\n.horizontal-scroll {\n  position: absolute;\n  bottom: 0;\n  left: 0;\n  height: 5px;\n  opacity: 0;\n  transition: opacity 0.4s linear;\n}\n.inner {\n  position: relative;\n  overflow: hidden;\n  height: 100%;\n}\n.slider__vertical {\n  position: relative;\n  width: 100%;\n  border-radius: 10px;\n  background: rgba(121,121,121,0.8);\n  transform: translate3d(0, 0, 0);\n  will-change: transform;\n/* transition: transform 0.2s */\n}\n.slider__horizontal {\n  position: relative;\n  height: 100%;\n  border-radius: 10px;\n  background: rgba(121,121,121,0.8);\n  transform: translate3d(0, 0, 0);\n  will-change: transform;\n/* transition: transform 0.2s */\n}\n.invisible {\n  opacity: 0;\n}\n.visible {\n  background-color: rgba(0,0,0,0);\n  opacity: 1;\n  transition: opacity 0.1s linear;\n}\n.mousein {\n  background-color: rgba(0,0,0,0.1);\n  opacity: 1;\n}\n.showArea {\n  position: relative;\n  transform: translate3d(0, 0, 0);\n  will-change: transform;\n}\n.scrollbar__click {\n  transition: transform 0.2s;\n}\n", ""]);
-
-// exports
-
+// extracted by mini-css-extract-plugin
 
 /***/ }),
+/* 9 */,
 /* 10 */
 /***/ (function(module, exports, __webpack_require__) {
 
@@ -3215,10 +3098,10 @@ if (true) {
 
 
 
-var assign = __webpack_require__(4);
+var assign = __webpack_require__(3);
 
-var ReactPropTypesSecret = __webpack_require__(6);
-var checkPropTypes = __webpack_require__(5);
+var ReactPropTypesSecret = __webpack_require__(5);
+var checkPropTypes = __webpack_require__(4);
 
 var printWarning = function() {};
 

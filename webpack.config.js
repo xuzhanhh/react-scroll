@@ -1,13 +1,15 @@
 const path = require('path');
 const webpack = require('webpack')
 const UglifyJsPlugin = require('uglifyjs-webpack-plugin');
+const ExtractTextPlugin = require('extract-text-webpack-plugin')
+const MiniCssExtractPlugin = require("mini-css-extract-plugin")
 
 module.exports = {
   mode: 'none',
   devtool: 'source-map',
   entry: {
-    'react-scroll': path.resolve('./src'),
-    'react-scroll.min': path.resolve('./src'),
+    'react-scroll': './src/ScrollBarOrigin',
+    'react-scroll.min': './src/ScrollBarOrigin',
   },
   output: {
     filename: './[name].js',
@@ -18,6 +20,14 @@ module.exports = {
   resolve: {
     extensions: ['.js', '.jsx']
   },
+  plugins: [
+    new MiniCssExtractPlugin({
+      // Options similar to the same options in webpackOptions.output
+      // both options are optional
+      filename: "[name].css",
+      chunkFilename: "[id].css"
+    })
+  ],
   module: {
     rules: [
       {
@@ -30,8 +40,15 @@ module.exports = {
       },
       {
         test: /\.styl$/,
-        // fallback: 'style-loader',
-        use: ['css-loader', 'stylus-loader']
+        // loader: ExtractTextPlugin.extract({
+        //   fallback: 'style-loader',
+        //   use: ['css-loader','stylus-loader'],
+        // })
+        use: [
+          { loader: MiniCssExtractPlugin.loader},
+            'css-loader',
+            'stylus-loader'
+        ]
       }
     ]
   },

@@ -1,0 +1,87 @@
+.inner__origin {
+  position: relative;
+  overflow: hidden;
+  width: 100%;
+  height: 100%;
+}
+.showArea__origin {
+  overflow-x: scroll;
+  overflow-y: scroll;
+  box-sizing: content-box;
+  padding-right: 17px;
+  padding-bottom: 17px;
+  width: 100%;
+  height: 100%;
+}
+.prop-panel__content {
+  width: 700px !important;
+}
+.showArea__disable--x {
+  overflow-x: hidden;
+}
+.showArea__disable--y {
+  overflow-y: hidden;
+}
+
+.vertical-scroll {
+  position: absolute;
+  top: 0;
+  right: 0;
+  width: 5px;
+  opacity: 0;
+  transition: opacity 0.4s linear;
+}
+.horizontal-scroll {
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  height: 5px;
+  opacity: 0;
+  transition: opacity 0.4s linear;
+}
+.inner {
+  position: relative;
+  overflow: hidden;
+  height: 100%;
+}
+.slider__vertical {
+  position: relative;
+  width: 100%;
+  border-radius: 10px;
+  background: rgba(121,121,121,0.8);
+  transform: translate3d(0, 0, 0);
+  will-change: transform;
+/* transition: transform 0.2s */
+}
+.slider__horizontal {
+  position: relative;
+  height: 100%;
+  border-radius: 10px;
+  background: rgba(121,121,121,0.8);
+  transform: translate3d(0, 0, 0);
+  will-change: transform;
+/* transition: transform 0.2s */
+}
+.invisible {
+  opacity: 0;
+}
+.visible {
+  background-color: rgba(0,0,0,0);
+  opacity: 1;
+  transition: opacity 0.1s linear;
+}
+.mousein {
+  background-color: rgba(0,0,0,0.1);
+  opacity: 1;
+}
+.showArea {
+  position: relative;
+  transform: translate3d(0, 0, 0);
+  will-change: transform;
+}
+.scrollbar__click {
+  transition: transform 0.2s;
+}
+
+
+/*# sourceMappingURL=react-scroll.css.map*/
