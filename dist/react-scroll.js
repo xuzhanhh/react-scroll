@@ -148,13 +148,15 @@ window.cancelAnimationFrame = window.cancelAnimationFrame || clearTimeout;
 
 var ticking = false;
 
-var ScrollBarOrigin = function (_Component) {
-    _inherits(ScrollBarOrigin, _Component);
+var ScrollBar = function (_Component) {
+    _inherits(ScrollBar, _Component);
 
-    function ScrollBarOrigin(props) {
-        _classCallCheck(this, ScrollBarOrigin);
+    function ScrollBar(props) {
+        _classCallCheck(this, ScrollBar);
 
-        var _this = _possibleConstructorReturn(this, (ScrollBarOrigin.__proto__ || Object.getPrototypeOf(ScrollBarOrigin)).call(this, props));
+        var _this = _possibleConstructorReturn(this, (ScrollBar.__proto__ || Object.getPrototypeOf(ScrollBar)).call(this, props));
+
+        _this._addListeners = function () {};
 
         _this._initCanvas = function (callback) {
             //存state
@@ -162,11 +164,13 @@ var ScrollBarOrigin = function (_Component) {
                 mouseIn = _this$state.mouseIn,
                 horizontal = _this$state.horizontal,
                 vertical = _this$state.vertical;
+            // const {
+            //     height: scrollHeight,
+            //     width: scrollWidth
+            // } = this.scroll.current.getBoundingClientRect()
 
-            var _this$scroll$current$ = _this.scroll.current.getBoundingClientRect(),
-                scrollHeight = _this$scroll$current$.height,
-                scrollWidth = _this$scroll$current$.width;
-
+            var scrollHeight = _this.scroll.current.offsetHeight;
+            var scrollWidth = _this.scroll.current.offsetWidth;
             var showAreaHeight = _this.showArea.current.scrollHeight - 17;
 
             var showAreaWidth = _this.showArea.current.scrollWidth - 17;
@@ -539,10 +543,11 @@ var ScrollBarOrigin = function (_Component) {
         return _this;
     }
 
-    _createClass(ScrollBarOrigin, [{
+    _createClass(ScrollBar, [{
         key: 'componentDidMount',
         value: function componentDidMount() {
             this._initCanvas();
+            this._addListeners();
         }
     }, {
         key: 'componentDidUpdate',
@@ -553,8 +558,6 @@ var ScrollBarOrigin = function (_Component) {
             }
             this._initCanvas();
         }
-
-        // _addListeners = () => {}
 
         // _reCalSliderHeight = () => {
         //     const {
@@ -713,13 +716,13 @@ var ScrollBarOrigin = function (_Component) {
         }
     }]);
 
-    return ScrollBarOrigin;
+    return ScrollBar;
 }(_react.Component);
 
-exports.default = ScrollBarOrigin;
+exports.default = ScrollBar;
 
 
-ScrollBarOrigin.propTypes = {
+ScrollBar.propTypes = {
     /*
         是否渲染并使用水平滚动条 默认为true
     */

@@ -1,9 +1,8 @@
 import React, { Component } from 'react'
-import './ScrollBarOrigin.styl'
-import './ScrollBar.styl'
+import './ScrollBarOrigin.css'
+import './ScrollBar.css'
 import cx from 'classnames'
 import css from 'dom-css'
-import { setTimeout } from 'timers'
 import PropTypes from 'prop-types'
 import { getTransformString } from './utils'
 window.requestAnimationFrame =
