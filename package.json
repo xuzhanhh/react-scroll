@@ -1,6 +1,6 @@
 {
   "name": "@xuzhanhh/react-scroll",
-  "version": "0.1.9",
+  "version": "0.1.11",
   "dependencies": {
     "classnames": "^2.2.6",
     "dom-css": "^2.1.0"

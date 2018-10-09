@@ -38,14 +38,14 @@ module.exports = {
         }
       },
       {
-        test: /\.styl$/,
+        test: /\.css$/,
         // loader: ExtractTextPlugin.extract({
         //   fallback: 'style-loader',
         //   use: ['css-loader','stylus-loader'],
         // })
         // use: ExtractTextWebpackPlugin.extract({
           // 将css用link的方式引入就不再需要style-loader了
-          use: ['css-loader', 'stylus-loader']       
+          use: ['style-loader','css-loader']       
       // })
       }
     ]

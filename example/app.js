@@ -1,12 +1,13 @@
 import React     from 'react';
 import ReactDOM  from 'react-dom';
 import ScrollBar from 'react-scroll'
+import './app.css'
 class App extends React.Component{
     render() {
         return (
           <div className="App">
     
-          <div style={{ height: 200, width:400 }}>
+          
             <ScrollBar>
               <div>
               <p className="App-intro">
@@ -41,7 +42,7 @@ class App extends React.Component{
           </p>
           </div>
             </ScrollBar>
-          </div>
+          
         </div>
         );
       }
