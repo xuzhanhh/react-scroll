@@ -117,19 +117,19 @@ __webpack_require__(6);
 
 __webpack_require__(8);
 
-var _classnames = __webpack_require__(10);
+var _classnames = __webpack_require__(9);
 
 var _classnames2 = _interopRequireDefault(_classnames);
 
-var _domCss = __webpack_require__(11);
+var _domCss = __webpack_require__(10);
 
 var _domCss2 = _interopRequireDefault(_domCss);
 
-var _propTypes = __webpack_require__(17);
+var _propTypes = __webpack_require__(16);
 
 var _propTypes2 = _interopRequireDefault(_propTypes);
 
-var _utils = __webpack_require__(19);
+var _utils = __webpack_require__(18);
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
@@ -2711,18 +2711,114 @@ module.exports = ReactPropTypesSecret;
 /* 6 */
 /***/ (function(module, exports, __webpack_require__) {
 
-// extracted by mini-css-extract-plugin
+exports = module.exports = __webpack_require__(7)(undefined);
+// imports
+
+
+// module
+exports.push([module.i, ".inner__origin {\n  position: relative;\n  overflow: hidden;\n  width: 100%;\n  height: 100%;\n}\n.showArea__origin {\n  overflow-x: scroll;\n  overflow-y: scroll;\n  box-sizing: content-box;\n  padding-right: 17px;\n  padding-bottom: 17px;\n  width: 100%;\n  height: 100%;\n}\n.prop-panel__content {\n  width: 700px !important;\n}\n.showArea__disable--x {\n  overflow-x: hidden;\n}\n.showArea__disable--y {\n  overflow-y: hidden;\n}\n", ""]);
+
+// exports
+
 
 /***/ }),
-/* 7 */,
+/* 7 */
+/***/ (function(module, exports) {
+
+/*
+	MIT License http://www.opensource.org/licenses/mit-license.php
+	Author Tobias Koppers @sokra
+*/
+// css base code, injected by the css-loader
+module.exports = function(useSourceMap) {
+	var list = [];
+
+	// return the list of modules as css string
+	list.toString = function toString() {
+		return this.map(function (item) {
+			var content = cssWithMappingToString(item, useSourceMap);
+			if(item[2]) {
+				return "@media " + item[2] + "{" + content + "}";
+			} else {
+				return content;
+			}
+		}).join("");
+	};
+
+	// import a list of modules into the list
+	list.i = function(modules, mediaQuery) {
+		if(typeof modules === "string")
+			modules = [[null, modules, ""]];
+		var alreadyImportedModules = {};
+		for(var i = 0; i < this.length; i++) {
+			var id = this[i][0];
+			if(typeof id === "number")
+				alreadyImportedModules[id] = true;
+		}
+		for(i = 0; i < modules.length; i++) {
+			var item = modules[i];
+			// skip already imported module
+			// this implementation is not 100% perfect for weird media query combinations
+			//  when a module is imported multiple times with different media queries.
+			//  I hope this will never occur (Hey this way we have smaller bundles)
+			if(typeof item[0] !== "number" || !alreadyImportedModules[item[0]]) {
+				if(mediaQuery && !item[2]) {
+					item[2] = mediaQuery;
+				} else if(mediaQuery) {
+					item[2] = "(" + item[2] + ") and (" + mediaQuery + ")";
+				}
+				list.push(item);
+			}
+		}
+	};
+	return list;
+};
+
+function cssWithMappingToString(item, useSourceMap) {
+	var content = item[1] || '';
+	var cssMapping = item[3];
+	if (!cssMapping) {
+		return content;
+	}
+
+	if (useSourceMap && typeof btoa === 'function') {
+		var sourceMapping = toComment(cssMapping);
+		var sourceURLs = cssMapping.sources.map(function (source) {
+			return '/*# sourceURL=' + cssMapping.sourceRoot + source + ' */'
+		});
+
+		return [content].concat(sourceURLs).concat([sourceMapping]).join('\n');
+	}
+
+	return [content].join('\n');
+}
+
+// Adapted from convert-source-map (MIT)
+function toComment(sourceMap) {
+	// eslint-disable-next-line no-undef
+	var base64 = btoa(unescape(encodeURIComponent(JSON.stringify(sourceMap))));
+	var data = 'sourceMappingURL=data:application/json;charset=utf-8;base64,' + base64;
+
+	return '/*# ' + data + ' */';
+}
+
+
+/***/ }),
 /* 8 */
 /***/ (function(module, exports, __webpack_require__) {
 
-// extracted by mini-css-extract-plugin
+exports = module.exports = __webpack_require__(7)(undefined);
+// imports
+
+
+// module
+exports.push([module.i, ".vertical-scroll {\n  position: absolute;\n  top: 0;\n  right: 0;\n  width: 5px;\n  opacity: 0;\n  transition: opacity 0.4s linear;\n}\n.horizontal-scroll {\n  position: absolute;\n  bottom: 0;\n  left: 0;\n  height: 5px;\n  opacity: 0;\n  transition: opacity 0.4s linear;\n}\n.inner {\n  position: relative;\n  overflow: hidden;\n  height: 100%;\n}\n.slider__vertical {\n  position: relative;\n  width: 100%;\n  border-radius: 10px;\n  background: rgba(121,121,121,0.8);\n  transform: translate3d(0, 0, 0);\n  will-change: transform;\n/* transition: transform 0.2s */\n}\n.slider__horizontal {\n  position: relative;\n  height: 100%;\n  border-radius: 10px;\n  background: rgba(121,121,121,0.8);\n  transform: translate3d(0, 0, 0);\n  will-change: transform;\n/* transition: transform 0.2s */\n}\n.invisible {\n  opacity: 0;\n}\n.visible {\n  background-color: rgba(0,0,0,0);\n  opacity: 1;\n  transition: opacity 0.1s linear;\n}\n.mousein {\n  background-color: rgba(0,0,0,0.1);\n  opacity: 1;\n}\n.showArea {\n  position: relative;\n  transform: translate3d(0, 0, 0);\n  will-change: transform;\n}\n.scrollbar__click {\n  transition: transform 0.2s;\n}\n", ""]);
+
+// exports
+
 
 /***/ }),
-/* 9 */,
-/* 10 */
+/* 9 */
 /***/ (function(module, exports, __webpack_require__) {
 
 var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;/*!
@@ -2779,13 +2875,13 @@ var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;/*!
 
 
 /***/ }),
-/* 11 */
+/* 10 */
 /***/ (function(module, exports, __webpack_require__) {
 
-var prefix = __webpack_require__(12)
-var toCamelCase = __webpack_require__(13)
+var prefix = __webpack_require__(11)
+var toCamelCase = __webpack_require__(12)
 var cache = { 'float': 'cssFloat' }
-var addPxToStyle = __webpack_require__(16)
+var addPxToStyle = __webpack_require__(15)
 
 function style (element, property, value) {
   var camel = cache[property]
@@ -2846,7 +2942,7 @@ module.exports.get = function (element, properties) {
 
 
 /***/ }),
-/* 12 */
+/* 11 */
 /***/ (function(module, exports) {
 
 var div = null
@@ -2882,11 +2978,11 @@ module.exports = function prefixStyle (prop) {
 
 
 /***/ }),
-/* 13 */
+/* 12 */
 /***/ (function(module, exports, __webpack_require__) {
 
 
-var space = __webpack_require__(14)
+var space = __webpack_require__(13)
 
 /**
  * Export.
@@ -2909,11 +3005,11 @@ function toCamelCase(string) {
 
 
 /***/ }),
-/* 14 */
+/* 13 */
 /***/ (function(module, exports, __webpack_require__) {
 
 
-var clean = __webpack_require__(15)
+var clean = __webpack_require__(14)
 
 /**
  * Export.
@@ -2936,7 +3032,7 @@ function toSpaceCase(string) {
 
 
 /***/ }),
-/* 15 */
+/* 14 */
 /***/ (function(module, exports) {
 
 
@@ -3009,7 +3105,7 @@ function uncamelize(string) {
 
 
 /***/ }),
-/* 16 */
+/* 15 */
 /***/ (function(module, exports) {
 
 /* The following list is defined in React's core */
@@ -3055,7 +3151,7 @@ module.exports = function(name, value) {
 };
 
 /***/ }),
-/* 17 */
+/* 16 */
 /***/ (function(module, exports, __webpack_require__) {
 
 /**
@@ -3080,12 +3176,12 @@ if (true) {
   // By explicitly using `prop-types` you are opting into new development behavior.
   // http://fb.me/prop-types-in-prod
   var throwOnDirectAccess = true;
-  module.exports = __webpack_require__(18)(isValidElement, throwOnDirectAccess);
+  module.exports = __webpack_require__(17)(isValidElement, throwOnDirectAccess);
 } else {}
 
 
 /***/ }),
-/* 18 */
+/* 17 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -3647,7 +3743,7 @@ module.exports = function(isValidElement, throwOnDirectAccess) {
 
 
 /***/ }),
-/* 19 */
+/* 18 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";

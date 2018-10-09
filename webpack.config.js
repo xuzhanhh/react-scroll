@@ -1,8 +1,8 @@
 const path = require('path');
 const webpack = require('webpack')
 const UglifyJsPlugin = require('uglifyjs-webpack-plugin');
-const ExtractTextPlugin = require('extract-text-webpack-plugin')
 const MiniCssExtractPlugin = require("mini-css-extract-plugin")
+let ExtractTextWebpackPlugin = require('extract-text-webpack-plugin');
 
 module.exports = {
   mode: 'none',
@@ -21,12 +21,11 @@ module.exports = {
     extensions: ['.js', '.jsx']
   },
   plugins: [
-    new MiniCssExtractPlugin({
-      // Options similar to the same options in webpackOptions.output
-      // both options are optional
-      filename: "[name].css",
-      chunkFilename: "[id].css"
-    })
+    // new MiniCssExtractPlugin({
+    //   filename: "[name].css",
+    // })
+    // new ExtractTextWebpackPlugin('css/style.css')  
+
   ],
   module: {
     rules: [
@@ -44,11 +43,10 @@ module.exports = {
         //   fallback: 'style-loader',
         //   use: ['css-loader','stylus-loader'],
         // })
-        use: [
-          { loader: MiniCssExtractPlugin.loader},
-            'css-loader',
-            'stylus-loader'
-        ]
+        // use: ExtractTextWebpackPlugin.extract({
+          // 将css用link的方式引入就不再需要style-loader了
+          use: ['css-loader', 'stylus-loader']       
+      // })
       }
     ]
   },
