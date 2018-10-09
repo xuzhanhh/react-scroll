@@ -1,8 +1,9 @@
 import React, { Component } from 'react'
-import './ScrollBarOrigin.css'
-import './ScrollBar.css'
+import './ScrollBarOrigin.styl'
+import './ScrollBar.styl'
 import cx from 'classnames'
 import css from 'dom-css'
+import { setTimeout } from 'timers'
 import PropTypes from 'prop-types'
 import { getTransformString } from './utils'
 window.requestAnimationFrame =
@@ -13,7 +14,7 @@ window.requestAnimationFrame =
 window.cancelAnimationFrame = window.cancelAnimationFrame || clearTimeout
 
 let ticking = false
-export default class ScrollBarOrigin extends Component {
+export default class ScrollBar extends Component {
     constructor(props) {
         super(props)
 
@@ -41,6 +42,7 @@ export default class ScrollBarOrigin extends Component {
     }
     componentDidMount() {
         this._initCanvas()
+        this._addListeners()
     }
     componentDidUpdate() {
         if (this.props.allowNesting) {
@@ -50,7 +52,7 @@ export default class ScrollBarOrigin extends Component {
         this._initCanvas()
     }
 
-    // _addListeners = () => {}
+    _addListeners = () => {}
 
     // _reCalSliderHeight = () => {
     //     const {
@@ -67,10 +69,13 @@ export default class ScrollBarOrigin extends Component {
     _initCanvas = callback => {
         //存state
         const { mouseIn, horizontal, vertical } = this.state
-        const {
-            height: scrollHeight,
-            width: scrollWidth
-        } = this.scroll.current.getBoundingClientRect()
+        // const {
+        //     height: scrollHeight,
+        //     width: scrollWidth
+        // } = this.scroll.current.getBoundingClientRect()
+
+        const scrollHeight = this.scroll.current.offsetHeight
+        const scrollWidth = this.scroll.current.offsetWidth
         const showAreaHeight = this.showArea.current.scrollHeight - 17
 
         const showAreaWidth = this.showArea.current.scrollWidth - 17
@@ -661,7 +666,7 @@ export default class ScrollBarOrigin extends Component {
     }
 }
 
-ScrollBarOrigin.propTypes = {
+ScrollBar.propTypes = {
     /*
         是否渲染并使用水平滚动条 默认为true
     */
