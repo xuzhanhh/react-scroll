@@ -1,0 +1,30 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`render 1`] = `
+<div
+  class="inner__origin"
+  style="width:200px;height:200px"
+>
+  <div
+    class="showArea showArea__origin"
+  >
+    <div
+      style="width:400px;height:400px"
+    />
+  </div>
+  <div
+    class="vertical-scroll invisible"
+  >
+    <div
+      class="slider__vertical"
+    />
+  </div>
+  <div
+    class="horizontal-scroll invisible"
+  >
+    <div
+      class="slider__horizontal"
+    />
+  </div>
+</div>
+`;

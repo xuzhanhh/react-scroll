@@ -1,6 +1,6 @@
 import React, { Component } from 'react'
-import './ScrollBarOrigin.css'
-import './ScrollBar.css'
+// import './ScrollBarOrigin.css'
+// import './ScrollBar.css'
 import cx from 'classnames'
 import css from 'dom-css'
 import PropTypes from 'prop-types'
